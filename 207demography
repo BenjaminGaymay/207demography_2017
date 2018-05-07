@@ -6,7 +6,7 @@ from pprint import pprint
 
 
 def load_csv(filename):
-	datas = [[]]
+	datas = []
 	with open(filename, 'r') as csv_file:
 		csv_reader = csv.reader(csv_file, delimiter=';')
 		next(csv_reader)
@@ -26,16 +26,24 @@ def calc(row):
 	print("country:  {}".format(row[0]))
 
 def main():
-	av = sys.argv
-	if (len(av) != 2):
+	argv = sys.argv
+	argv.pop(0)
+	if (len(argv) < 1):
 		return 84
-	elif av[1] in ['-h', '--help']:
+	elif argv[0] in ['-h', '--help']:
 		return usage()
 	datas = load_csv("207demography_data.csv")
-
+	countries = []
 	for row in datas:
-		if len(row) > 2 and av[1] == row[1]:
-			calc(row)
+		if len(row) > 2:
+			if row[1] in argv:
+				countries.append(row)
+	print("country:  ", end="")
+	for country in countries:
+		if country == countries[-1]:
+			print(country[0])
+		else:
+			print("{}, ".format(country[0]), end="")
 	return 0
 
 if __name__ == '__main__':
