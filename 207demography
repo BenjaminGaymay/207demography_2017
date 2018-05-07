@@ -6,6 +6,9 @@ from pprint import pprint
 
 
 def load_csv(filename):
+	"""
+	Loads CSV in datas and returns it
+	"""
 	datas = []
 	with open(filename, 'r') as csv_file:
 		csv_reader = csv.reader(csv_file, delimiter=';')
@@ -16,35 +19,73 @@ def load_csv(filename):
 
 
 def usage():
+	"""
+	Print usage !
+	"""
 	print("""USAGE
 	./207demography code1 [...]
 DESCRIPTION
 	code1 country code""")
 
 
-def calc(row):
-	print("country:  {}".format(row[0]))
-
-def main():
-	argv = sys.argv
-	argv.pop(0)
-	if (len(argv) < 1):
-		return 84
-	elif argv[0] in ['-h', '--help']:
-		return usage()
-	datas = load_csv("207demography_data.csv")
-	countries = []
-	for row in datas:
-		if len(row) > 2:
-			if row[1] in argv:
-				countries.append(row)
+def show_countries(countries):
+	"""
+	Show countries selected
+	"""
+	i = 0
 	print("country:  ", end="")
 	for country in countries:
-		if country == countries[-1]:
+		if i + 1 == len(countries):
 			print(country[0])
 		else:
 			print("{}, ".format(country[0]), end="")
+		i += 1
+
+def fit1():
+	print("fit 1")
+
+
+def fit2():
+	print("fit 2")
+
+
+def correlation():
+	print("correlation")
+
+
+def tomaredouble(datas, av):
+	"""
+	Toma redouble
+	"""
+	countries = []
+	for country in av:
+		for row in datas:
+			if len(row) > 2 and row[1] == country:
+				countries.append(row)
+	show_countries(countries)
+	fit1()
+	fit2()
+	correlation()
+
+
+def main():
+	"""
+	Main function
+	"""
+	av = sys.argv
+	av.pop(0)
+	if (len(av) < 1):
+		return 84
+	elif av[0] in ['-h', '--help']:
+		return usage()
+	try:
+		datas = load_csv("207demography_data.csv")
+	except Exception as err:
+		print(err)
+		return 84
+	tomaredouble(datas, av)
 	return 0
+
 
 if __name__ == '__main__':
 	sys.exit(main())
