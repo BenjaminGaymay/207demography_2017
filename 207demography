@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+import sys
+import csv
+from pprint import pprint
+
+
+def load_csv(filename):
+	datas = [[]]
+	with open(filename, 'r') as csv_file:
+		csv_reader = csv.reader(csv_file, delimiter=';')
+		next(csv_reader)
+		for row in csv_reader:
+			datas.append(row)
+	return datas
+
+
+def usage():
+	print("""USAGE
+	./207demography code1 [...]
+DESCRIPTION
+	code1 country code""")
+
+
+def calc(row):
+	print("country:  {}".format(row[0]))
+
+def main():
+	av = sys.argv
+	if (len(av) != 2):
+		return 84
+	elif av[1] in ['-h', '--help']:
+		return usage()
+	datas = load_csv("207demography_data.csv")
+
+	for row in datas:
+		if len(row) > 2 and av[1] == row[1]:
+			calc(row)
+	return 0
+
+if __name__ == '__main__':
+	sys.exit(main())
