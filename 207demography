@@ -41,15 +41,55 @@ def show_countries(countries):
 			print("{}, ".format(country[0]), end="")
 		i += 1
 
-def fit1():
+def formula(val1, val2):
+
+	x1 = x2 = y1 = y2 = 0
+	for i in range(51):
+		x1 += val1[i]
+		y1 += val2[i]
+		x2 += val1[i] ** 2
+		y2 += val1[i] * val2[i]
+	res1 = (51 * y2 - x1 * y1) / (51 * x2 - pow(x1, 2))
+	res2 = (y1 * x2 - x1 * y2) / (51 * x2 - pow(x1, 2))
+	return res1, res2
+
+
+def fit1(countries):
+	"""
+	Fit 1
+	"""
+	years = [1961 + x for x in range(51)]
+	populations = []
+	for country in countries:
+		populations.append([float(x) for x in country[2:]])
+	nb_pop = 0
+	pprint(populations)
+	for pop in populations:
+		nb_pop += sum(pop)
+	'''
+	N σ XY − σ X σ Y
+	N σ X² − (σ X)²
+	'''
+	# std = 0
+	# for i in range(51):
+	# 	std += (population[i] - (res1 * years[i] + res2)) ** 2
+	# mdr = std ** 0.5
+	# res1, res2 = formula(years, populations)
 	print("fit 1")
+	print()
 
 
-def fit2():
+def fit2(countries):
+	"""
+	Fit 2
+	"""
 	print("fit 2")
 
 
-def correlation():
+def correlation(countries):
+	"""
+	Correlation
+	"""
 	print("correlation")
 
 
@@ -63,9 +103,9 @@ def tomaredouble(datas, av):
 			if len(row) > 2 and row[1] == country:
 				countries.append(row)
 	show_countries(countries)
-	fit1()
-	fit2()
-	correlation()
+	fit1(countries)
+	fit2(countries)
+	correlation(countries)
 
 
 def main():
