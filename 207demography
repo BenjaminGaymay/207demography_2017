@@ -3,7 +3,7 @@
 import sys
 import csv
 from pprint import pprint
-
+from operator import add
 
 def load_csv(filename):
 	"""
@@ -54,6 +54,10 @@ def formula(val1, val2):
 	return res1, res2
 
 
+def merge_list(lists):
+	new_list = [sum(x) for x in zip(*lists)]
+	return new_list
+
 def fit1(countries):
 	"""
 	Fit 1
@@ -62,10 +66,10 @@ def fit1(countries):
 	populations = []
 	for country in countries:
 		populations.append([float(x) for x in country[2:]])
-	nb_pop = 0
-	pprint(populations)
-	for pop in populations:
-		nb_pop += sum(pop)
+	r = merge_list(populations)
+
+	# for pop in populations:
+	# 	nb_pop += sum(pop)
 	'''
 	N σ XY − σ X σ Y
 	N σ X² − (σ X)²
