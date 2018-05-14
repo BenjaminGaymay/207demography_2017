@@ -54,9 +54,36 @@ def formula(val1, val2):
 	return res1, res2
 
 
+def linear_adjustment_a(years, population):
+
+	# year : x / pop : y
+	n = len(population) if len(population) > len(years) else len(years)
+	xy = xSum = ySum = xSquare = 0
+	for i in range(n):
+		xy += years[i] * population[i]
+		xSum += years[i]
+		ySum += population[i]
+		xSquare += years[i] ** 2
+	return (n * xy - xSum * ySum) / (n * xSquare - xSum ** 2) / 1000000
+
+
+def linear_adjustment_b(years, population):
+
+	# year : x / pop : y
+	n = len(population) if len(population) > len(years) else len(years)
+	xy = xSum = ySum = xSquare = 0
+	for i in range(n):
+		xy += years[i] * population[i]
+		xSum += years[i]
+		ySum += population[i]
+		xSquare += years[i] ** 2
+	return abs((ySum * xSquare - xSum * xy) / (n * xSquare - xSum ** 2) / 1000000)
+
+
 def merge_list(lists):
 	new_list = [sum(x) for x in zip(*lists)]
 	return new_list
+
 
 def fit1(countries):
 	"""
@@ -66,20 +93,16 @@ def fit1(countries):
 	populations = []
 	for country in countries:
 		populations.append([float(x) for x in country[2:]])
-	r = merge_list(populations)
+	populations = merge_list(populations)
+	a = linear_adjustment_a(years, populations)
+	b = linear_adjustment_b(years, populations)
+	print("fit 1\n\tY = {:.2f} X - {:.2f}".format(a, b))
 
-	# for pop in populations:
-	# 	nb_pop += sum(pop)
-	'''
-	N σ XY − σ X σ Y
-	N σ X² − (σ X)²
-	'''
 	# std = 0
 	# for i in range(51):
 	# 	std += (population[i] - (res1 * years[i] + res2)) ** 2
 	# mdr = std ** 0.5
 	# res1, res2 = formula(years, populations)
-	print("fit 1")
 	print()
 
 
