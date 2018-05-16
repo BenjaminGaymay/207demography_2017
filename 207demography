@@ -164,10 +164,14 @@ def tomaredouble(datas, av):
 		for row in datas:
 			if len(row) > 2 and row[1] == country:
 				countries.append(row)
+	if len(countries) == 0:
+                print("Country not found.")
+                return 84
 	show_countries(countries)
 	a, b = fit1(countries)
 	c, d = fit2(countries)
 	correlation(countries,a,b,c,d)
+	return 0
 
 
 def main():
@@ -185,8 +189,7 @@ def main():
 	except Exception as err:
 		print(err)
 		return 84
-	tomaredouble(datas, av)
-	return 0
+	return tomaredouble(datas, av)
 
 
 if __name__ == '__main__':
