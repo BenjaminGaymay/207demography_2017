@@ -92,7 +92,7 @@ def fit1(countries):
 	years = [1961 + x for x in range(51)]
 	populations = []
 	for country in countries:
-		populations.append([float(x) for x in country[2:]])
+		populations.append([float(x.replace(",", ".")) for x in country[2:]])
 	populations = merge_list(populations)
 	a = linear_adjustment_a(years, populations)
 	b = linear_adjustment_b(years, populations)
@@ -123,7 +123,7 @@ def fit2(countries):
 	years = [1961 + x for x in range(51)]
 	populations = []
 	for country in countries:
-		populations.append([float(x) for x in country[2:]])
+		populations.append([float(x.replace(",", ".")) for x in country[2:]])
 	populations = merge_list(populations)
 	a = linear_adjustment_a(populations, years)
 	b = linear_adjustment_b(populations, years)
@@ -148,12 +148,11 @@ def correlation(countries, a, b, c, d):
 	years = [1961 + x for x in range(51)]
 	populations = []
 	for country in countries:
-		populations.append([float(x) for x in country[2:]])
+		populations.append([float(x.replace(",", ".")) for x in country[2:]])
 	pop = merge_list(populations)
 	for i in range(51):
 		var += (pop[i] - (a * years[i] + b)) * (pop[i] - ((-(b) + years[i]) / a))
 	corr = var / (g_std1 * g_std2)
-	# print(g_std1, g_std2)
 	print("correlation:  {}".format(round(corr / 51, 4)))
 
 def tomaredouble(datas, av):
