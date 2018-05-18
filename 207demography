@@ -87,7 +87,7 @@ def stddev_fit1(a, b, pop, years):
 
 def fit1(countries):
 	"""
-	Fit 1
+	fit1
 	"""
 	years = [1961 + x for x in range(51)]
 	populations = []
@@ -103,8 +103,7 @@ def fit1(countries):
 	std = stddev_fit1(a, b, populations, years)
 	print("\tstandard deviation:  {:.2f}".format(std / MILLION))
 	pop_predict = a / MILLION * 2050 + b / MILLION
-	pop_predict = round(pop_predict, 2)
-	print("\tpopulation in 2050:  {}".format(pop_predict))
+	print("\tpopulation in 2050:  {:.2f}".format(pop_predict))
 	return a, b
 
 def stddev_fit2(a, b, pop, years):
@@ -135,8 +134,7 @@ def fit2(countries):
 	std = stddev_fit2(a, b, populations, years)
 	print("\tstandard deviation:  {:.2f}".format(std / MILLION))
 	pop_predict = ((-b + 2050) / a) / MILLION
-	pop_predict = round(pop_predict, 2)
-	print("\tpopulation in 2050:  {}".format(pop_predict))
+	print("\tpopulation in 2050:  {:.2f}".format(pop_predict))
 	return a, b
 
 
