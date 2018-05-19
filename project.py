@@ -177,11 +177,11 @@ def demography(datas, av):
 	return 0
 
 
-def main():
+def main(sys_argv):
 	"""
 	Main function
 	"""
-	av = sys.argv
+	av = sys_argv
 	av.pop(0)
 	if (len(av) < 1):
 		return usage(84)
@@ -196,4 +196,4 @@ def main():
 
 
 if __name__ == '__main__':
-	sys.exit(main())
+	sys.exit(main(sys.argv))
